@@ -12,8 +12,11 @@ module.exports = {
       white       : "#FFFFFF",
       gray        : "#374151",
       graylight   : "#4b5563",
-      graytext    : "#9ca3af,",
+      graytext    : "#9ca3af",
       black       : "#000000",
+      graytext2   : "#dfe2e1",
+      indigolight : "rgb(99 102 241)",
+      indigodark  : " rgb(49 46 129)",
     },
     screens    : {
       ssm : "320px",

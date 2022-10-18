@@ -1,33 +1,115 @@
 import React,{ useState ,useEffect} from "react"
 import User from "./User"
-import UserProfile from "./UserProfile"
+
 import ReactDOM from "react-dom/client"
+import Fade from "@mui/material/Fade"
+import Slide from "@mui/material/Slide"
+import Zoom from "@mui/material/Zoom"
 
 
-
-const Navbar = ({ ref_bfn,ref_price_per_stock,ref_price_per_earning }) => {
+const Navbar = ({ ref_bfn,ref_price_per_stock,ref_price_per_earning,chartData,setChartData }) => {
   const navbar_links = [
     { name: "Price Per Earnings",refer:ref_price_per_stock},
     { name: "Big Five Numbers",refer:ref_bfn},
     { name: "Price Per Earnings",refer:ref_price_per_earning}
 ]
+const postReq=(data,url)=>(
+
+
+fetch(url, {
+  method: 'POST',
+  headers: {
+     'Accept': 'application/json',
+    // 'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(data)
+})
+.then((response) => response.json())
+.then((res) => {console.log(res.roic);setChartData(
+
+
+  {
+    "roic" :  res.roic.slice(1,res.roic.length-1).split(","),
+    "eps" : res.eps.slice(1,res.roic.length-1).split(","),
+    "sales":  res.sales.slice(1,res.roic.length-1).split(","),
+    "equity" :  res.equity.slice(1,res.roic.length-1).split(","),
+    "freeCash":  res.free_cash_flow.slice(1,res.roic.length-1).split(","),
+    "operatingFreeCash":  res.operating_cash_flow.slice(1,res.roic.length-1).split(","),
+  }
+
+
+)
+
+
+})
+
+)
 
   const  reference=(ref)=>{
     ref.current?.scrollIntoView({behavior: 'smooth' })
    }
   const [prof, setProf] = useState(false);
+  const [start, setStart] = useState(false);
+  const [search, setSearch] = useState(true);
+
+
+  // useEffect(() =>{
+  //   if(start){
+  //    console.log("first")
+  //   }
+  //  },[])
+
+   useEffect(() =>{
+    if(start){
+  //     fetch("http://localhost:5000")
+  //     .then((response) => response.json())
+  // .then((data) => console.log(data.gg));
+  postReq({"tradecode":"Beximco"},"http://localhost:8000")
+    }
+
+   },[search])
+
+
+
 
   useEffect(()=>{
+    const button = [
+    {
+      name : "Profile",
+      href : "#",
+    },
+    {
+      name : "History",
+      href : "#",
+    },
+    {
+      name : "SignOut",
+      href : "#",
+    },
+  ]
 
       const profile = ReactDOM.createRoot(document.getElementById("profile"))
       profile.render(
-        <UserProfile state={prof?'visible':'hidden'}/>
+
+        <Zoom in={prof} style={{ transitionDelay: prof ? '50ms' : '0ms' }}>
+         <div className='border drop-shadow-lg  border-bluematte  rounded-lg   bg-bluedark '>
+      {button.map(items => (
+        <div className='my-2'>
+          <a className='text-graytext2 transition delay-50 duration-500 ease-in-out  drop-shadow-md hover:text-xl hover:text-bluematte' href={items.href}>
+            {items.name}
+          </a>
+          <br />
+        </div>
+      ))}
+    </div>
+          </Zoom>
+
 
       )
 
 
-
   },[prof])
+
 
   return (
     <div>
@@ -45,15 +127,17 @@ const Navbar = ({ ref_bfn,ref_price_per_stock,ref_price_per_earning }) => {
         {navbar_links.map(item => (
           <button
             onClick={()=>{reference(item.refer)}}
-            className='antialiased transition transform text-white my-1 mx-4 text-xl font-semibold     hover:text-bluetheme  2xl:my-8 md:my-8 drop-shadow-xl'
+            className='antialiased transition delay-50 duration-500 ease-in-out transform text-white my-1 mx-4 text-xl font-semibold     hover:text-indigolight  2xl:my-8 md:my-8 drop-shadow-xl'
             href=''
           >
             {item.name}
           </button>
         ))}
-        <div className="container lg:visible ssm:invisible sm:invisible max-h-12  max-w-xs absolute inset-y-0 right-20 top-5 ">
+        <div  className="container lg:visible ssm:invisible sm:invisible max-h-12  max-w-xs absolute inset-y-0 right-20 top-5 ">
         <input type="search" id="default-search" className="block p-4 pl-7 w-full text-sm border-graylight rounded-lg border bg-gray placeholder-graytext text-white " placeholder="Search by using trading code" required/>
-        <button type="submit" className="text-black border-2 border-[#34456b] drop-shadow-md absolute right-2.5 bottom-0.5  hover:bg-bluetheme/50 font-medium rounded-lg text-sm px-4 py-2 dark:bg-bluetheme">Search</button>
+
+        <button onClick={()=>{setStart(true);setSearch(!search)}} type="submit" className= "transition delay-50 duration-500 ease-in-out   text-black border-2 hover:border-indigodark border-[#34456b] drop-shadow-md absolute right-2.5 bottom-0.5  hover:bg-indigolight font-medium rounded-lg text-sm px-4 py-2 bg-bluetheme">Search</button>
+
         </div>
         <button onClick={()=>{setProf(!prof)}} className="absolute inset-y-0 right-5  top-0 lg:visible ssm:invisible sm:invisible">
         <User />
