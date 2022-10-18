@@ -64,7 +64,9 @@ fetch(url, {
   //     fetch("http://localhost:5000")
   //     .then((response) => response.json())
   // .then((data) => console.log(data.gg));
-  postReq({"tradecode":"Beximco"},"http://localhost:8000")
+  const defaultSearch = document.getElementById("default-search").value
+
+  postReq({"tradecode":defaultSearch},"http://localhost:7000")
     }
 
    },[search])
@@ -134,7 +136,7 @@ fetch(url, {
           </button>
         ))}
         <div  className="container lg:visible ssm:invisible sm:invisible max-h-12  max-w-xs absolute inset-y-0 right-20 top-5 ">
-        <input type="search" id="default-search" className="block p-4 pl-7 w-full text-sm border-graylight rounded-lg border bg-gray placeholder-graytext text-white " placeholder="Search by using trading code" required/>
+        <input type="search" id="default-search" className="block p-4 pl-7 w-full focus:bg-gray text-sm border-graylight rounded-lg border bg-gray placeholder-graytext text-white " placeholder="Search by using trading code" required/>
 
         <button onClick={()=>{setStart(true);setSearch(!search)}} type="submit" className= "transition delay-50 duration-500 ease-in-out   text-black border-2 hover:border-indigodark border-[#34456b] drop-shadow-md absolute right-2.5 bottom-0.5  hover:bg-indigolight font-medium rounded-lg text-sm px-4 py-2 bg-bluetheme">Search</button>
 

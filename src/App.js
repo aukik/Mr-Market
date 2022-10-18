@@ -28,19 +28,59 @@ function App() {
       <div className='container mx-auto   lg:w-1/2  lg:px-8 ssm:px-1 ssm:w-full sm:px-1 sm:w-full'>
         <LineChart
           ref_price_per_stock={ref_price_per_stock}
-          chartData={chartData}
-          setChartData={setChartData}
+          chartData={chartData.roic}
         />
         <BarChart
           ref_bfn={ref_bfn}
-          chartData={chartData}
-          setChartData={setChartData}
+          name={"Equity"}
+          chartData={chartData.equity}
         />
-        {/* <DoughnutChart
+        <DoughnutChart
           ref_price_per_earning={ref_price_per_earning}
-          chartData={chartData}
-          setChartData={setChartData}
-        /> */}
+          chartData={chartData.equity}
+          name={"Equity"}
+        />
+        <BarChart
+          ref_bfn={ref_bfn}
+          name={"Earnings Per Share (EPS)"}
+          chartData={chartData.eps}
+        />
+        <DoughnutChart
+          ref_price_per_earning={ref_price_per_earning}
+          chartData={chartData.eps}
+          name={"EPS"}
+        />
+        <BarChart
+          ref_bfn={ref_bfn}
+          name={"Sales"}
+          chartData={chartData.sales}
+        />
+        <DoughnutChart
+          ref_price_per_earning={ref_price_per_earning}
+          chartData={chartData.sales}
+          name={"Sales"}
+        />
+        <BarChart
+          ref_bfn={ref_bfn}
+          name={"Earnings Per Share (Free Cash)"}
+          chartData={chartData.freeCash}
+        />
+        <DoughnutChart
+          ref_price_per_earning={ref_price_per_earning}
+          chartData={chartData.freeCash}
+          name={"Free Cash"}
+        />
+
+        <BarChart
+          ref_bfn={ref_bfn}
+          name={"Earnings Per Share (Operating Free Cash)"}
+          chartData={chartData.operatingFreeCash}
+        />
+        <DoughnutChart
+          ref_price_per_earning={ref_price_per_earning}
+          chartData={chartData.operatingFreeCash}
+          name={"Operating Free Cash"}
+        />
       </div>
       <div
         id='profile'

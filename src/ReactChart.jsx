@@ -15,27 +15,6 @@ const labels = [
   "2022",
 ]
 
-const dataRound = {
-  labels   : labels,
-  datasets : [
-    {
-      label           : "P/E last 10 years",
-      backgroundColor : "rgb(23, 192, 255,0.5)",
-
-      borderColor     : "rgb(23, 192, 255)",
-
-      data            : [ 0, 10, 5, 2, 20, 30, 45, 2, 4, 6 ],
-    },
-    {
-      label           : "P/E last 10 years",
-      backgroundColor : "rgb(255, 99, 132,0.5)",
-
-      borderColor     : "rgb(255, 99, 132)",
-
-      data            : [ 73, 52, 72, 55, 30, 42, 43, 64, 12, 45 ],
-    },
-  ],
-}
 const options = {
   elements   : {
     point : {
@@ -159,7 +138,7 @@ const LineChart = ({ ref_price_per_stock, chartData }) => {
         backgroundColor : "rgb(21 45 71)",
         borderColor     : "rgb(23, 192, 255)",
         color           : "rgb(255 0 0)",
-        data            : chartData.roic,
+        data            : chartData,
       },
     ],
   }
@@ -180,7 +159,7 @@ const LineChart = ({ ref_price_per_stock, chartData }) => {
     </div>
   )
 }
-const BarChart = ({ ref_bfn, chartData }) => {
+const BarChart = ({ ref_bfn, chartData, name }) => {
   const dataBar = {
     labels   : labels,
     datasets : [
@@ -204,7 +183,7 @@ const BarChart = ({ ref_bfn, chartData }) => {
         ],
         borderWidth     : "3",
         color           : "rgb(255 0 0)",
-        data            : chartData.equity,
+        data            : chartData,
       },
     ],
   }
@@ -213,7 +192,7 @@ const BarChart = ({ ref_bfn, chartData }) => {
     <div ref={ref_bfn} className='flex flex-col py-20 '>
       <div className='flex justify-start'>
         <p className='text-xl text-white rounded-lg border-2 border-bluedark font-semibold subpixel-antialiased  px-8 py-5'>
-          Big Five Numbers
+          {name}
         </p>
       </div>
 
@@ -221,12 +200,33 @@ const BarChart = ({ ref_bfn, chartData }) => {
     </div>
   )
 }
-const DoughnutChart = ({ ref_price_per_earning }) => {
+const DoughnutChart = ({ ref_price_per_earning, chartData, name }) => {
+  const dataRound = {
+    labels   : labels,
+    datasets : [
+      {
+        label           : "P/E last 10 years",
+        backgroundColor : "rgb(23, 192, 255,0.5)",
+
+        borderColor     : "rgb(23, 192, 255)",
+
+        data            : chartData,
+      },
+      {
+        label           : "P/E last 10 years",
+        backgroundColor : "rgb(255, 99, 132,0.5)",
+
+        borderColor     : "rgb(255, 99, 132)",
+
+        data            : [ 73, 52, 72, 55, 30, 42, 43, 64, 12, 45 ],
+      },
+    ],
+  }
   return (
     <div ref={ref_price_per_earning} className='flex flex-col py-20 '>
       <div className='flex justify-start '>
         <p className='text-xl text-white rounded-lg border-2 border-bluedark font-semibold  subpixel-antialiased  px-8 py-5'>
-          Price Per Earnings
+          {name}
         </p>
       </div>
       <div className='px-36'>
