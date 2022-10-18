@@ -129,12 +129,12 @@ const optionRadar = {
     },
   },
 }
-const LineChart = ({ ref_price_per_stock, chartData }) => {
+const LineChart = ({ ref_price_per_stock, chartData, label_up, name }) => {
   const data = {
     labels   : labels,
     datasets : [
       {
-        label           : "Stock Price last 10 years",
+        label           : label_up,
         backgroundColor : "rgb(21 45 71)",
         borderColor     : "rgb(23, 192, 255)",
         color           : "rgb(255 0 0)",
@@ -143,28 +143,23 @@ const LineChart = ({ ref_price_per_stock, chartData }) => {
     ],
   }
   return (
-    <div className=' mt-24 '>
-      <div className='flex flex-col my-1 '>
-        <div className='flex justify-start mt-4'>
-          <p
-            ref={ref_price_per_stock}
-            className='text-xl font-semibold text-white rounded-lg border-2  border-bluedark  subpixel-antialiased  px-8 py-5'
-          >
-            {"Return on Invested Capital (ROIC) for last 10 years"}
-          </p>
-        </div>
-
-        <Line data={data} options={options} />
+    <div className='flex flex-col  '>
+      <div className='flex justify-start '>
+        <p className='text-xl font-semibold text-white    subpixel-antialiased  px-8 py-5'>
+          {name}
+        </p>
       </div>
+
+      <Line data={data} options={options} />
     </div>
   )
 }
-const BarChart = ({ ref_bfn, chartData, name }) => {
+const BarChart = ({ ref_bfn, chartData, name, label_up }) => {
   const dataBar = {
     labels   : labels,
     datasets : [
       {
-        label           : "Big Five Numbers Last 10 years",
+        label           : label_up,
         backgroundColor : [
           "rgb(54, 162, 235,0.7)",
           "rgb(255, 205, 86,0.7)",
@@ -189,9 +184,9 @@ const BarChart = ({ ref_bfn, chartData, name }) => {
   }
 
   return (
-    <div ref={ref_bfn} className='flex flex-col py-20 '>
+    <div className='flex flex-col  '>
       <div className='flex justify-start'>
-        <p className='text-xl text-white rounded-lg border-2 border-bluedark font-semibold subpixel-antialiased  px-8 py-5'>
+        <p className='text-xl text-white  font-semibold subpixel-antialiased  px-8 py-5'>
           {name}
         </p>
       </div>
@@ -200,36 +195,43 @@ const BarChart = ({ ref_bfn, chartData, name }) => {
     </div>
   )
 }
-const DoughnutChart = ({ ref_price_per_earning, chartData, name }) => {
+const DoughnutChart = ({
+  ref_price_per_earning,
+  chartDataOne,
+  chartDataTwo,
+  name,
+  label_up,
+  label_up_two,
+}) => {
   const dataRound = {
     labels   : labels,
     datasets : [
       {
-        label           : "P/E last 10 years",
+        label           : label_up,
         backgroundColor : "rgb(23, 192, 255,0.5)",
 
         borderColor     : "rgb(23, 192, 255)",
 
-        data            : chartData,
+        data            : chartDataOne,
       },
       {
-        label           : "P/E last 10 years",
+        label           : label_up_two,
         backgroundColor : "rgb(255, 99, 132,0.5)",
 
         borderColor     : "rgb(255, 99, 132)",
 
-        data            : [ 73, 52, 72, 55, 30, 42, 43, 64, 12, 45 ],
+        data            : chartDataTwo,
       },
     ],
   }
   return (
-    <div ref={ref_price_per_earning} className='flex flex-col py-20 '>
-      <div className='flex justify-start '>
-        <p className='text-xl text-white rounded-lg border-2 border-bluedark font-semibold  subpixel-antialiased  px-8 py-5'>
-          {name}
-        </p>
-      </div>
-      <div className='px-36'>
+    <div className='flex flex-row justify-center'>
+      <div className='container justify-center px-36  max-w-4xl'>
+        <div className='flex justify-self-start '>
+          <p className='text-xl text-white font-semibold  subpixel-antialiased  px-8 py-5'>
+            {name}
+          </p>
+        </div>
         <Radar data={dataRound} options={optionRadar} />
       </div>
     </div>
