@@ -2,19 +2,6 @@ import React from "react"
 import Chart from "chart.js/auto"
 import { Line, Bar, Radar } from "react-chartjs-2"
 
-const labels = [
-  "2013",
-  "2014",
-  "2015",
-  "2016",
-  "2017",
-  "2018",
-  "2019",
-  "2020",
-  "2021",
-  "2022",
-]
-
 const options = {
   elements   : {
     point : {
@@ -29,6 +16,9 @@ const options = {
     },
     legend : {
       labels : {
+        color : "rgb(255,255,255)",
+      },
+      title  : {
         color : "rgb(255,255,255)",
       },
     },
@@ -117,19 +107,27 @@ const optionRadar = {
   },
   scales     : {
     r : {
-      angleLines  : {
+      suggestedMin : 0,
+
+      angleLines   : {
         color : "rgb(255, 255, 255,0.5)",
       },
-      grid        : {
+      grid         : {
         color : "rgb(255, 255, 255,0.5)",
       },
-      pointLabels : {
+      pointLabels  : {
         color : "rgb(255, 255, 255)",
       },
     },
   },
 }
-const LineChart = ({ ref_price_per_stock, chartData, label_up, name }) => {
+const LineChart = ({
+  ref_price_per_stock,
+  chartData,
+  label_up,
+  name,
+  labels,
+}) => {
   const data = {
     labels   : labels,
     datasets : [
@@ -145,7 +143,7 @@ const LineChart = ({ ref_price_per_stock, chartData, label_up, name }) => {
   return (
     <div className='flex flex-col  '>
       <div className='flex justify-start '>
-        <p className='text-xl font-semibold text-white    subpixel-antialiased  px-8 py-5'>
+        <p className='text-xl font-semibold text-graytext2    subpixel-antialiased  px-8 py-5'>
           {name}
         </p>
       </div>
@@ -154,12 +152,12 @@ const LineChart = ({ ref_price_per_stock, chartData, label_up, name }) => {
     </div>
   )
 }
-const BarChart = ({ ref_bfn, chartData, name, label_up }) => {
+const BarChart = ({ ref_bfn, chartData, name, label_up, labels }) => {
   const dataBar = {
     labels   : labels,
     datasets : [
       {
-        label           : label_up,
+        label           : label_up + " %",
         backgroundColor : [
           "rgb(54, 162, 235,0.7)",
           "rgb(255, 205, 86,0.7)",
@@ -202,26 +200,30 @@ const DoughnutChart = ({
   name,
   label_up,
   label_up_two,
+  labels,
 }) => {
   const dataRound = {
     labels   : labels,
     datasets : [
       {
-        label           : label_up,
+        label           :
+          label_up === "ROIC"
+            ? label_up + " Average %"
+            : label_up + " Growth Average %",
         backgroundColor : "rgb(23, 192, 255,0.5)",
 
         borderColor     : "rgb(23, 192, 255)",
 
         data            : chartDataOne,
       },
-      {
-        label           : label_up_two,
-        backgroundColor : "rgb(255, 99, 132,0.5)",
+      // {
+      //   label           : label_up_two,
+      //   backgroundColor : "rgb(255, 99, 132,0.5)",
 
-        borderColor     : "rgb(255, 99, 132)",
+      //   borderColor     : "rgb(255, 99, 132)",
 
-        data            : chartDataTwo,
-      },
+      //   data            : chartDataTwo,
+      // },
     ],
   }
   return (
@@ -229,7 +231,11 @@ const DoughnutChart = ({
       <div className='container justify-center px-36  max-w-4xl'>
         <div className='flex justify-self-start '>
           <p className='text-xl text-white font-semibold  subpixel-antialiased  px-8 py-5'>
-            {name}
+            {label_up === "ROIC" ? (
+              "Average of ROIC"
+            ) : (
+              "Growth Rate Average of " + name
+            )}
           </p>
         </div>
         <Radar data={dataRound} options={optionRadar} />

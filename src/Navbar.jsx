@@ -15,26 +15,60 @@ for (let i = 0; i < arr.length-1; i++) {
 }
 return new_arr
 }
+const getAverage=(arra)=>{
+  console.log("first")
 
-const stockPriceApi=(name) =>{
+  let new_arr=[]
+  let sum=0
+ if(arra.length>=5){
+  for (let i = arra.length-1; i >=0; i--) {
+      sum+=Number(arra[i])
+      if(i===arra.length-1){
 
+          new_arr.push(sum)
+          console.log(sum)
+      }else if(arra.length-1-i==2){
 
+        new_arr.push(sum/3)
+        console.log(sum)
 
-const url = 'https://dhaka-stock-exchange-dse.p.rapidapi.com/monthly_company_price/'+name+'?month=120';
-
-const options = {
-  method: 'GET',
-  headers: {
-    'X-RapidAPI-Key': 'ff49371471mshb75e23687f3ce5dp180923jsn4fc4532d658f',
-    'X-RapidAPI-Host': 'dhaka-stock-exchange-dse.p.rapidapi.com'
+      }else if(arra.length-1-i==4 && arra.length!=5){
+        new_arr.push(sum/5)
+        console.log(sum)
+      }else if(i==0){
+        new_arr.push(sum/(arra.length))
+        console.log(sum)
+      }
   }
-};
 
-fetch(url, options)
-	.then(res => res.json())
-	.then(json => console.log(json))
-	.catch(err => console.error('error:' + err));
+ }else{
+
+     new_arr=[]
+ }
+
+
+ return new_arr
 }
+
+// const stockPriceApi=(name) =>{
+
+
+
+// const url = 'https://dhaka-stock-exchange-dse.p.rapidapi.com/monthly_company_price/'+name+'?month=120';
+
+// const options = {
+//   method: 'GET',
+//   headers: {
+//     'X-RapidAPI-Key': 'ff49371471mshb75e23687f3ce5dp180923jsn4fc4532d658f',
+//     'X-RapidAPI-Host': 'dhaka-stock-exchange-dse.p.rapidapi.com'
+//   }
+// };
+
+// fetch(url, options)
+// 	.then(res => res.json())
+// 	.then(json => console.log(json))
+// 	.catch(err => console.error('error:' + err));
+// }
 
 const Navbar = ({ ref_all,chartData,setChartData }) => {
 
@@ -54,7 +88,7 @@ const Navbar = ({ ref_all,chartData,setChartData }) => {
     bigFiveNumberDrop.render(
 
       <Zoom in={dropFive} style={{ transitionDelay: '100ms' }}>
-       <div className='border flex flex-col divide-y divide-bluetheme/[.30]  max-h-full py-2 drop-shadow-lg  border-bluematte/[.80]  rounded-lg   bg-bluedark/[.90] '>
+       <div className='border flex flex-col divide-y divide-graytext2/[.30]  max-h-full py-2 drop-shadow-lg  border-graylight/[.80]  rounded-lg   bg-bluedark '>
        {navbar_links.map(item => (
         <>
          <button
@@ -84,6 +118,7 @@ const Navbar = ({ ref_all,chartData,setChartData }) => {
     { name: "Sales",refer:ref_all.sales},
     { name: "Free Cash",refer:ref_all.fcf},
     { name: "Operating Cash",refer:ref_all.ofcf},
+
 ]
 const postReq=(data,url)=>(
 
@@ -113,29 +148,33 @@ fetch(url, {
   let ofcf_growth=getGrowthRate(ofcf)
   console.log(res.roic)
 
-  setChartData(
 
+const dataForChart =  {
+  "roic" : roic,
+  "eps" : eps,
+  "sales":  sales,
+  "equity" :  equity,
 
+  "fcf": fcf,
+  "ofcf":  ofcf,
+  "roic_growth":getGrowthRate(roic),
+  "eps_growth":getGrowthRate(eps),
+  "sales_growth":getGrowthRate(sales),
+  "equity_growth":getGrowthRate(equity),
+  "fcf_growth":getGrowthRate(fcf),
+  "ofcf_growth":getGrowthRate(ofcf),
 
-  {
-    "roic" : roic,
-    "eps" : eps,
-    "sales":  sales,
-    "equity" :  equity,
+  "roic_avg":getAverage(roic),
+  "eps_avg":getAverage(eps_growth),
+  "sales_avg":getAverage(sales_growth),
+  "equity_avg":getAverage(equity_growth),
+  "fcf_avg":getAverage(fcf_growth),
+  "ofcf_avg":getAverage(ofcf_growth),
+  "tradecode":data.tradecode,
 
-    "fcf": fcf,
-    "ofcf":  ofcf,
-    "roic_growth":getGrowthRate(roic),
-    "eps_growth":getGrowthRate(eps),
-    "sales_growth":getGrowthRate(sales),
-    "equity_growth":getGrowthRate(equity),
-    "fcf_growth":getGrowthRate(fcf),
-    "ofcf_growth":getGrowthRate(ofcf),
+}
 
-  }
-
-
-)
+  setChartData(dataForChart)
 
 
 })
@@ -162,8 +201,8 @@ fetch(url, {
   //     .then((response) => response.json())
   // .then((data) => console.log(data.gg));
   const defaultSearch = document.getElementById("default-search").value
-  console.log("fjhsdlkfjlds")
-  stockPriceApi("BEXIMCO")
+  console.log("Search button clicked")
+  // stockPriceApi("BEXIMCO")
   postReq({"tradecode":defaultSearch},"http://localhost:7000")
     }
 
@@ -195,7 +234,7 @@ fetch(url, {
       profile.render(
 
         <Zoom in={prof} style={{ transitionDelay: prof ? '50ms' : '0ms' }}>
-         <div className='border drop-shadow-lg  border-bluematte  rounded-lg   bg-bluedark '>
+         <div className='border drop-shadow-lg  border-graylight  rounded-lg   bg-bluedark '>
       {button.map(items => (
         <div className='my-2'>
           <a className='text-graytext2 transition delay-50 duration-500 ease-in-out  drop-shadow-md hover:text-xl hover:text-bluematte' href={items.href}>
@@ -237,6 +276,13 @@ fetch(url, {
           </button>
         ))} */}
         <div className="flex flex-row  my-1 mx-4 2xl:my-8 md:my-8" ref={reference_drop}>
+        <button
+            onClick={()=>{reference(ref_all.rule)}}
+            className='antialiased transition delay-50 duration-500 ease-in-out transform text-white  text-xl font-semibold     hover:text-indigolight mr-8   drop-shadow-xl'
+            href=''
+          >
+            Rule
+          </button>
         <button
             onMouseEnter={() => setDropFive(true)} onClick={() => setDropFive(false)}
             className='antialiased transition delay-50 duration-500 ease-in-out transform text-white  text-xl font-semibold     hover:text-indigolight   drop-shadow-xl'
