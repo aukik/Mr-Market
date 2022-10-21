@@ -145,7 +145,7 @@ function App() {
 
       />
       <div ref={ref_all.rule} className="flex flex-col  mt-32 mb-14 mx-20 "> <Rule/></div>
-      <hr class="my-8 mx-20 h-px bg-bluematte opacity-[.60] border-0 "></hr>
+      <hr class="my-8 mx-20 h-[2px] bg-bluematte opacity-[.60] "/>
       <div className='container min-w-full '>
         <div>
           <div className='flex flex-col align-center my-2  mx-10'>

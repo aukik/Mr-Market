@@ -16,14 +16,20 @@ const Rule = () => {
   return (
     <div>
       <p className='text-bluematte text-4xl text-start'>The Rule</p>
-      <p className='text-white text-justify font-sans text-xl my-4'>{part1}</p>
-      <p className='text-white font-sans text-xl text-start my-4'>{part2}</p>
+      <p className='text-graytext2 text-justify font-sans text-xl my-4'>
+        {part1}
+      </p>
+      <p className='text-graytext2 font-sans text-xl text-start my-4'>
+        {part2}
+      </p>
       {part3.map(items => (
-        <ul className='list-disc text-white text-justify text-xl mx-10 my-4 '>
+        <ul className='list-disc text-graytext2 text-justify text-xl mx-10 my-4 '>
           <li>{items}</li>
         </ul>
       ))}
-      <p className='text-white text-justify font-sans text-xl my-4'>{part4}</p>
+      <p className='text-graytext2 text-justify font-sans text-xl my-4'>
+        {part4}
+      </p>
     </div>
   )
 }
