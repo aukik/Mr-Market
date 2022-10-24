@@ -59,10 +59,16 @@ const Mos = () => {
         </div>
         <div className='flex justify-center my-2 ml-8'>
           <div className='container flex    max-w-half  pl-4'>
-            <input className='bg-gray rounded-lg border pl-6  border-graylight min-w-[90%] min-h-[50px]' />
+            <input
+              placeholder='Usually 15%...'
+              className='bg-gray text-white rounded-lg border pl-6  border-graylight min-w-[90%] min-h-[50px]'
+            />
           </div>
           <div className='container flex max-w-half pl-4'>
-            <input className='bg-gray rounded-lg border pl-6 border-graylight min-w-[90%] min-h-[50px]' />
+            <input
+              placeholder='Usually 10...'
+              className='bg-gray text-white rounded-lg border pl-6 border-graylight min-w-[90%] min-h-[50px]'
+            />
           </div>
         </div>
         <div className='container flex justify-end pr-12 my-2'>
