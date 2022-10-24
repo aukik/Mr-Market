@@ -3,8 +3,10 @@ import Navbar from "./Navbar"
 import Rule from "./Rule"
 import { useState, useEffect } from "react"
 import { useRef } from "react"
+import PercentOutlinedIcon from '@mui/icons-material/PercentOutlined';
 import Literature from "./Literature.jsx"
 import { LineChart, BarChart, DoughnutChart } from "./ReactChart"
+import Mos from "./Mos.jsx"
 function App() {
 
   const ref_all={
@@ -15,6 +17,7 @@ function App() {
     fcf :useRef(null),
     ofcf :useRef(null),
     rule:useRef(null),
+    mos:useRef(null),
 
   }
 
@@ -158,10 +161,13 @@ function App() {
                     <div className='self-start my-2'>
 
                      <p className='text-graytext2 text-6xl font-semibold '> {items.labelUp=='ROIC'?chartData.tradecode.toUpperCase():''}</p>
-                     </div>
-                      <div className='self-start my-2'>
 
-                      <p className='text-bluematte text-4xl'>{items.name}</p>
+                     </div>
+                      <div className='flex flex-row self-start my-2'>
+                      <div className='self-center'> <p className='text-bluematte text-4xl'>{items.name}</p></div>
+
+                      <div className='self-center mx-3 mt-1 max-w-[50px]'> <img src="https://cdn.discordapp.com/attachments/886258864289366027/1033783260267958302/Untitled-1-01.png"/></div>
+
                       </div>
 
                       <Literature describe={items.describe}/>
@@ -204,7 +210,9 @@ function App() {
               )
             })}
 
+
           </div>
+
         </div>
         <div
           id='profile'
@@ -212,10 +220,15 @@ function App() {
         />
          <div
           id='bfnDrop'
-          className='container  fixed inset-y-[100px] left-56 max-w-[190px] '
+          className='container  fixed inset-y-[100px] left-72 max-w-[190px] '
         />
       </div>
-    </div>
+        <div ref={ref_all.mos}>
+        <Mos/>
+        </div>
+
+      </div>
+
   )
 }
 

@@ -76,6 +76,7 @@ const Navbar = ({ ref_all,chartData,setChartData }) => {
 
 
   const [dropFive,setDropFive] = useState(false)
+  const [timeoutFive,setTimeoutFive] = useState(false)
 
   // close dropdown on click outside
   const reference_drop = useDetectClickOutside({ onTriggered: ()=>{
@@ -91,8 +92,9 @@ const Navbar = ({ ref_all,chartData,setChartData }) => {
        <div className='border flex flex-col divide-y divide-graytext2/[.30]  max-h-full py-2 drop-shadow-lg  border-graylight/[.80]  rounded-lg   bg-bluedark '>
        {navbar_links.map(item => (
         <>
-         <button
+                 <button
             onClick={()=>{reference(item.refer)}}
+            onMouseEnter={() => {setTimeoutFive(true)}} onMouseLeave={() => {setTimeoutFive(false);setTimeout(()=>{if(!timeoutFive){setDropFive(false)}},3000)}}
             className='antialiased transition delay-50 duration-500 ease-in-out transform text-graytext2 my-1 mx-4 text-lg hover:text-xl font-semibold     hover:text-indigolight   drop-shadow-xl'
             href=''
           >
@@ -284,15 +286,23 @@ const dataForChart =  {
             Rule
           </button>
         <button
-            onMouseEnter={() => setDropFive(true)} onClick={() => setDropFive(false)}
+            onMouseEnter={() => {setDropFive(true);setTimeout(()=>{if(!timeoutFive){setDropFive(false)}}, 3000)}} onClick={() => setDropFive(false)}
             className='antialiased transition delay-50 duration-500 ease-in-out transform text-white  text-xl font-semibold     hover:text-indigolight   drop-shadow-xl'
             href=''
           >
             Big Five Numbers
           </button>
+
           <div className="relative top-1">
           <ArrowDropDownIcon color="primary"/>
           </div>
+          <button
+            onClick={()=>{reference(ref_all.mos)}}
+            className='antialiased transition mx-4 delay-50 duration-500 ease-in-out transform text-white  text-xl font-semibold     hover:text-indigolight   drop-shadow-xl'
+            href=''
+          >
+            Margin of Safety
+          </button>
 
 
 
