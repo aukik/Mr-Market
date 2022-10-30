@@ -205,6 +205,7 @@ function App() {
                       label_up_two={items.labelUpBar}
                       labels={labelOther}
                     />
+                    <p className="text-white font-lg font-sans">NB: If its blue then all good but check the number twice if this radar chart  appears to be red or orange. Red means all growth rates are less than 10% and Orange means one or more growth rates are less than 10%</p>
                   </div>
                 </>
               )

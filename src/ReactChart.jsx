@@ -202,6 +202,25 @@ const DoughnutChart = ({
   label_up_two,
   labels,
 }) => {
+  let color = "rgb(255, 99, 132,0.5)"
+  let back_color = "rgb(255, 99, 132)"
+  if (
+    chartDataOne[3] >= 10 &&
+    chartDataOne[2] >= 10 &&
+    chartDataOne[1] >= 10 &&
+    chartDataOne[0] >= 10
+  ) {
+    color = "rgb(23, 192, 255,0.5)"
+    back_color = "rgb(23, 192, 255)"
+  } else if (
+    chartDataOne[3] >= 10 ||
+    chartDataOne[2] >= 10 ||
+    chartDataOne[1] >= 10 ||
+    chartDataOne[0] >= 10
+  ) {
+    color = "rgb(255,150,98,0.5)"
+    back_color = "rgb(255,150,98)"
+  }
   const dataRound = {
     labels   : labels,
     datasets : [
@@ -210,9 +229,9 @@ const DoughnutChart = ({
           label_up === "ROIC"
             ? label_up + " Average %"
             : label_up + " Growth Average %",
-        backgroundColor : "rgb(23, 192, 255,0.5)",
+        backgroundColor : color,
 
-        borderColor     : "rgb(23, 192, 255)",
+        borderColor     : back_color,
 
         data            : chartDataOne,
       },
