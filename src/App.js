@@ -224,7 +224,7 @@ function App() {
         />
       </div>
         <div ref={ref_all.mos}>
-        <Mos/>
+        <Mos eps={chartData.eps} equity={chartData.equity_growth} tradecode={chartData.tradecode}/>
         </div>
 
       </div>
