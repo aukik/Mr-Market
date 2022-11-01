@@ -1,4 +1,6 @@
 import "./App.css"
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 import Navbar from "./Navbar"
 import Rule from "./Rule"
 import { useState, useEffect } from "react"
@@ -56,6 +58,7 @@ function App() {
   const initial_data = []
   const initial_data_bar = [ ]
   const initial_data_dough = []
+  const [loadingState,setLoadingState]=useState(false)
   const [ chartData, setChartData ] = useState({
     roic   : initial_data,
     eps    : initial_data,
@@ -145,12 +148,16 @@ function App() {
         chartData={chartData}
         setChartData={setChartData}
         ref_all={ref_all}
+        setLoadingState={setLoadingState}
 
       />
       <div ref={ref_all.rule} className="flex flex-col  mt-32 mb-14 mx-20 "> <Rule/></div>
       <hr class="my-8 mx-20 h-[2px] bg-bluematte opacity-[.60] "/>
+      <SkeletonTheme baseColor="#202020" highlightColor="#444">
       <div className='container min-w-full '>
         <div>
+
+
           <div className='flex flex-col align-center my-2  mx-10'>
 
             {information.map(items => {
@@ -158,7 +165,9 @@ function App() {
                 <>
 
                 <div ref={items.refer} className='flex flex-col self-start mx-12 my-4'>
+
                     <div className='self-start my-2'>
+
 
                      <p className='text-graytext2 text-6xl font-semibold '> {items.labelUp=='ROIC'?chartData.tradecode.toUpperCase():''}</p>
 
@@ -178,6 +187,8 @@ function App() {
                     <div className='container pr-10'>
                       <LineChart
                         // ref_price_per_stock={items.refer}
+
+                        setLoadingState={setLoadingState}
                         chartData={items.chartData}
                         label_up={items.labelUp}
                         name={items.name}
@@ -188,6 +199,7 @@ function App() {
                     <div className={`container ${items.labelUp=='ROIC'?'pt-8':''} ssm:pt-14 sm:pt-6 md:pt-6 lg:pt-6  mr-16`}>
                       <BarChart
                         // ref_bfn={items.refer}
+                        setLoadingState={setLoadingState}
                         chartData={items.chartDataGrowth}
                         label_up={items.labelUpBar}
                         name={""}
@@ -195,9 +207,11 @@ function App() {
                       />
                     </div>
                   </div>
+
                   <div className='flex flex-col py-20 justify-center'>
                     <DoughnutChart
                       // ref_price_per_earning={items.refer}
+                      setLoadingState={setLoadingState}
                       chartDataOne={items.chartDataAvg}
                       chartDataTwo={items.chartDataGrowth}
                       label_up={items.labelUp}
@@ -207,6 +221,7 @@ function App() {
                     />
                     <p className="text-white font-lg font-sans">NB: If its blue then all good but check the number twice if this radar chart  appears to be red or orange. Red means all growth rates are less than 10% and Orange means one or more growth rates are less than 10%</p>
                   </div>
+
                 </>
               )
             })}
@@ -224,6 +239,7 @@ function App() {
           className='container  fixed inset-y-[100px] left-72 max-w-[190px] '
         />
       </div>
+      </SkeletonTheme>
         <div ref={ref_all.mos}>
         <Mos eps={chartData.eps} equity={chartData.equity_growth} tradecode={chartData.tradecode}/>
         </div>

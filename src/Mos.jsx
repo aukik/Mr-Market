@@ -34,7 +34,7 @@ const Mos = ({ eps, equity, tradecode }) => {
         const growthRate = document.getElementById("growthinput").value
         const years = document.getElementById("yearinput").value
 
-        fetch("http://localhost:7000/mos", {
+        fetch("http://localhost:8000/mos", {
           method  : "POST",
           headers : {
             Accept : "application/json",

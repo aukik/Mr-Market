@@ -70,7 +70,7 @@ const getAverage=(arra)=>{
 // 	.catch(err => console.error('error:' + err));
 // }
 
-const Navbar = ({ ref_all,chartData,setChartData }) => {
+const Navbar = ({ ref_all,chartData,setChartData ,setLoadingState}) => {
 
 
 
@@ -135,6 +135,7 @@ fetch(url, {
 })
 .then((response) => response.json())
 .then((res) => {
+  setLoadingState(false)
   let roic =  res.roic.slice(1,res.roic.length-1).split(",")
   let eps= res.eps.slice(1,res.eps.length-1).split(",")
   let sales=  res.sales.slice(1,res.sales.length-1).split(",")
@@ -205,7 +206,8 @@ const dataForChart =  {
   const defaultSearch = document.getElementById("default-search").value
   console.log("Search button clicked")
   // stockPriceApi("BEXIMCO")
-  postReq({"tradecode":defaultSearch},"http://localhost:7000")
+  setLoadingState(true)
+  postReq({"tradecode":defaultSearch},"http://localhost:8000")
     }
 
    },[search])
