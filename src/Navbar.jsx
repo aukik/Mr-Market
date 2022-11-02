@@ -1,4 +1,5 @@
 import React,{ useState ,useEffect} from "react"
+import { Link, DirectLink, Element, Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
 import User from "./User"
 import ArrowDropDownIcon  from '@mui/icons-material/ArrowDropDown'
 import ReactDOM from "react-dom/client"
@@ -70,7 +71,7 @@ const getAverage=(arra)=>{
 // 	.catch(err => console.error('error:' + err));
 // }
 
-const Navbar = ({ ref_all,chartData,setChartData ,setLoadingState}) => {
+const Navbar = ({ ref_all,chartData,setChartData ,setLoadingState,loadingMos}) => {
 
 
 
@@ -185,7 +186,7 @@ const dataForChart =  {
 )
 
   const  reference=(ref)=>{
-    ref.current?.scrollIntoView({behavior: 'smooth' })
+    ref.current.scrollIntoView({behavior: 'smooth' })
    }
   const [prof, setProf] = useState(false);
   const [start, setStart] = useState(false);
@@ -259,7 +260,7 @@ const dataForChart =  {
 
   return (
     <>
-      <div className=' fixed navbar top-0 left-0 right-0 container-fluid  bg-bluedark   flex h-24 '>
+      <div className=' fixed navbar z-50 top-0 left-0 right-0 container-fluid  bg-bluedark   flex h-24 '>
        <a className='flex-none mx-2 ml-4  my-2' href="http://localhost:3000">
        <img
           className=' max-w-[50px]'

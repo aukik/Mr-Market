@@ -1,5 +1,6 @@
 import React from "react"
 import Chart from "chart.js/auto"
+import Skeleton from "react-loading-skeleton"
 import { Line, Bar, Radar } from "react-chartjs-2"
 
 const options = {
@@ -122,6 +123,7 @@ const optionRadar = {
   },
 }
 const LineChart = ({
+  setLoadingState,
   ref_price_per_stock,
   chartData,
   label_up,
@@ -140,19 +142,41 @@ const LineChart = ({
       },
     ],
   }
-  return (
-    <div className='flex flex-col  '>
-      <div className='flex justify-start '>
-        <p className='text-xl font-semibold text-graytext2    subpixel-antialiased  px-8 py-5'>
-          {name}
-        </p>
-      </div>
+  if (!setLoadingState) {
+    return (
+      <div className='flex flex-col  '>
+        <div className='flex justify-start '>
+          <p className='text-xl font-semibold text-graytext2    subpixel-antialiased  px-8 py-5'>
+            {name}
+          </p>
+        </div>
 
-      <Line data={data} options={options} />
-    </div>
-  )
+        <Line data={data} options={options} />
+      </div>
+    )
+  } else {
+    return (
+      <div className='flex flex-col  '>
+        <div className='flex justify-start '>
+          <p className='text-xl font-semibold text-graytext2    subpixel-antialiased  px-8 py-5'>
+            {name}
+          </p>
+        </div>
+        <div className='pt-12'>
+          <Skeleton height={70} count={4} borderRadius={"0.8rem"} />
+        </div>
+      </div>
+    )
+  }
 }
-const BarChart = ({ ref_bfn, chartData, name, label_up, labels }) => {
+const BarChart = ({
+  ref_bfn,
+  chartData,
+  name,
+  label_up,
+  labels,
+  setLoadingState,
+}) => {
   const dataBar = {
     labels   : labels,
     datasets : [
@@ -180,20 +204,36 @@ const BarChart = ({ ref_bfn, chartData, name, label_up, labels }) => {
       },
     ],
   }
+  if (!setLoadingState) {
+    return (
+      <div className='flex flex-col  '>
+        <div className='flex justify-start'>
+          <p className='text-xl text-white  font-semibold subpixel-antialiased  px-8 py-5'>
+            {name}
+          </p>
+        </div>
 
-  return (
-    <div className='flex flex-col  '>
-      <div className='flex justify-start'>
-        <p className='text-xl text-white  font-semibold subpixel-antialiased  px-8 py-5'>
-          {name}
-        </p>
+        <Bar data={dataBar} options={optionBar} />
       </div>
+    )
+  } else {
+    return (
+      <div className='flex flex-col  '>
+        <div className='flex justify-start'>
+          <p className='text-xl text-white  font-semibold subpixel-antialiased  px-8 py-5'>
+            {name}
+          </p>
+        </div>
 
-      <Bar data={dataBar} options={optionBar} />
-    </div>
-  )
+        <div className='pt-14'>
+          <Skeleton height={70} count={4} borderRadius={"0.8rem"} />
+        </div>
+      </div>
+    )
+  }
 }
 const DoughnutChart = ({
+  setLoadingState,
   ref_price_per_earning,
   chartDataOne,
   chartDataTwo,
@@ -245,22 +285,43 @@ const DoughnutChart = ({
       // },
     ],
   }
-  return (
-    <div className='flex flex-row justify-center'>
-      <div className='container justify-center px-36  max-w-4xl'>
-        <div className='flex justify-self-start '>
-          <p className='text-xl text-white font-semibold  subpixel-antialiased  px-8 py-5'>
-            {label_up === "ROIC" ? (
-              "Average of ROIC"
-            ) : (
-              "Growth Rate Average of " + name
-            )}
-          </p>
+  if (!setLoadingState) {
+    return (
+      <div className='flex flex-row justify-center'>
+        <div className='container justify-center px-36  max-w-4xl'>
+          <div className='flex justify-self-start '>
+            <p className='text-xl text-white font-semibold  subpixel-antialiased  px-8 py-5'>
+              {label_up === "ROIC" ? (
+                "Average of ROIC"
+              ) : (
+                "Growth Rate Average of " + name
+              )}
+            </p>
+          </div>
+          <Radar data={dataRound} options={optionRadar} />
         </div>
-        <Radar data={dataRound} options={optionRadar} />
       </div>
-    </div>
-  )
+    )
+  } else {
+    return (
+      <div className='flex flex-row justify-center'>
+        <div className='container justify-center px-36  max-w-4xl'>
+          <div className='flex justify-self-start '>
+            <p className='text-xl text-white font-semibold  subpixel-antialiased  px-8 py-5'>
+              {label_up === "ROIC" ? (
+                "Average of ROIC"
+              ) : (
+                "Growth Rate Average of " + name
+              )}
+            </p>
+          </div>
+          <div className=' pb-6'>
+            <Skeleton height={80} count={7} borderRadius={"0.8rem"} />
+          </div>
+        </div>
+      </div>
+    )
+  }
 }
 
 export { LineChart, BarChart, DoughnutChart }
