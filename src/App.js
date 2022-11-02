@@ -91,6 +91,7 @@ function App() {
       chartDataGrowth : chartData.roic_growth,
       labelUpBar      : "ROIC Growth",
       refer           : ref_all.roic,
+
       describe        : "ROIC is Return on Invested Capital, the single most important number to tell you if a business is being run well or not. The number should be equal to or greater than 10% per year, but the real key is seeing if the ROIC number is going up over time. If it's at the same level or going up, then the business is probably well run. If the ROIC number is going down, it means that the CEO is reinvesting the surplus cash and getting a smaller return on it than in previous years."
     },
     {chartDataAvg    : chartData.equity_avg,
@@ -154,7 +155,12 @@ function App() {
         setLoadingMos={setLoadingMos}
 
       />
-      <div ref={ref_all.rule} className="flex flex-col  mt-32 mb-14 mx-20 "> <Rule/></div>
+      <div ref={ref_all.rule} className="flex flex-col  mt-32 mb-14 mx-20 ">
+        <Element name="rule" className="element">
+        <Rule/>
+        </Element>
+
+         </div>
       <hr class="my-8 mx-20 h-[2px] bg-bluematte opacity-[.60] "/>
       <SkeletonTheme baseColor="#2b3b5e" highlightColor="#1B2640">
       <div className='container min-w-full '>
@@ -166,7 +172,7 @@ function App() {
             {information.map(items => {
               return (
                 <>
-
+                <Element name={items.labelUp} className="element">
                 <div ref={items.refer} className='flex flex-col self-start mx-12 my-4'>
 
                     <div className='self-start my-2'>
@@ -224,7 +230,7 @@ function App() {
                     />
                     <p className="text-white font-lg font-sans">NB: If its blue then all good but check the number twice if this radar chart  appears to be red or orange. Red means all growth rates are less than 10% and Orange means one or more growth rates are less than 10%</p>
                   </div>
-
+                  </Element>
                 </>
               )
             })}
@@ -244,7 +250,9 @@ function App() {
       </div>
       </SkeletonTheme>
         <div ref={ref_all.mos}>
+        <Element name="mos" className="element">
         <Mos eps={chartData.eps} setLoadingMos={setLoadingMos} loadingMos={loadingMos} equity={chartData.equity_growth} tradecode={chartData.tradecode}/>
+        </Element>
         </div>
 
       </div>
