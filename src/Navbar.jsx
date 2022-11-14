@@ -328,6 +328,11 @@ const Navbar = ({
             onMouseEnter={() => {
               setDropFive(true)
             }}
+            // onMouseLeave={() => {
+            //   setTimeout(() => {
+            //     setDropFive(false)
+            //   }, 5000)
+            // }}
             onClick={() => setDropFive(false)}
             className='antialiased transition delay-50 duration-500 ease-in-out transform text-white  text-xl font-semibold     hover:text-indigolight   drop-shadow-xl'
             href=''
